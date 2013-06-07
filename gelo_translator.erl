@@ -15,10 +15,14 @@ do_translate([{function, Name, [], Fun}|T], Trans, Info) ->
 
 do_fun([]) ->
     [];
-do_fun([{variable, Var}|T]) ->
-    [{atom, 1, list_to_atom(Var)}|do_fun(T)];
-do_fun([{add, {integer, Nr}, {integer, Nr2}}|T]) ->
-    [{op, 1, '+', {integer, 1, Nr}, {integer, 1, Nr2}}|do_fun(T)].
+do_fun([H|T]) ->
+    [do_fun(H)|do_fun(T)];
+do_fun({variable, Var}) ->
+    {atom, 1, list_to_atom(Var)};
+do_fun({add, Arg1, Arg2}) ->
+    {op, 1, '+', do_fun(Arg1), do_fun(Arg2)};
+do_fun({integer, N}) ->
+    {integer,1,N}.
 
 make_forms(Trans, Info) ->
     {ok, Name, Beam} = compile:forms([{attribute,1,module,a}, {attribute, 1, export, Info#info.exports}|Trans]),
