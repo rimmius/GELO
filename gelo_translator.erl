@@ -2,6 +2,7 @@
 
 -export([start/1]).
 -record(info, {exports = []}).
+
 start(S) ->
     Info = #info{},
     {NewInfo, Trans} = do_translate(S, [], Info),
@@ -19,8 +20,14 @@ do_fun([H|T]) ->
     [do_fun(H)|do_fun(T)];
 do_fun({variable, Var}) ->
     {atom, 1, list_to_atom(Var)};
+do_fun({subtract, Arg1, Arg2}) ->
+    {op, 1, '-', do_fun(Arg1), do_fun(Arg2)};
 do_fun({add, Arg1, Arg2}) ->
     {op, 1, '+', do_fun(Arg1), do_fun(Arg2)};
+do_fun({multiply, Arg1, Arg2}) ->
+    {op, 1, '*', do_fun(Arg1), do_fun(Arg2)};
+do_fun({divide, Arg1, Arg2}) ->
+    {op, 1, '/', do_fun(Arg1), do_fun(Arg2)};
 do_fun({integer, N}) ->
     {integer,1,N}.
 
