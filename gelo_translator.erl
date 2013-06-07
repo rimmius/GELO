@@ -19,7 +19,13 @@ do_fun([]) ->
 do_fun([H|T]) ->
     [do_fun(H)|do_fun(T)];
 do_fun({variable, Var}) ->
-    {atom, 1, list_to_atom(Var)};
+    {var, 1, list_to_atom(Var)};
+do_fun({assign, Arg1, Arg2}) ->
+    {match, 1, do_fun(Arg1), do_fun(Arg2)};
+do_fun({ifs, Arg1, Arg2}) ->
+    {'case', 1, do_fun(Arg1), [{clause, 1, [{atom, 1, true}], [], do_fun(Arg2)}]};
+do_fun({gt, Arg1, Arg2}) ->
+    {op, 1, '>', do_fun(Arg1), do_fun(Arg2)};
 do_fun({subtract, Arg1, Arg2}) ->
     {op, 1, '-', do_fun(Arg1), do_fun(Arg2)};
 do_fun({add, Arg1, Arg2}) ->

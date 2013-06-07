@@ -1,5 +1,5 @@
 Nonterminals Functions Function Statements Statement Expression Param Params Comp If Else comp math1 math2 assign.
-Terminals '+' '-' '*' '/' ';' '=' '(' ')' '{' '}' ',' eq integer id lt gt function 'if' neq leq geq else.
+Terminals '+' '-' '*' '/' ';' '=' '(' ')' '{' '}' ',' eq integer id lt gt function 'if' neq leq geq else name.
 Rootsymbol Functions.
 
 Left 100 math1.
@@ -9,8 +9,8 @@ Left 50 assign.
 Functions -> Function : ['$1'].
 Functions -> Function Functions : ['$1'|'$2'].
 
-Function -> function id '(' Params ')' '{' Statements '}' : {function, unwrap('$2'), '$4', '$7'}.
-Function -> function id '(' ')' '{' Statements '}' : {function, unwrap('$2'), [], '$6'}.
+Function -> function name '(' Params ')' '{' Statements '}' : {function, unwrap('$2'), '$4', '$7'}.
+Function -> function name '(' ')' '{' Statements '}' : {function, unwrap('$2'), [], '$6'}.
 
 Statements -> Statement : ['$1'].
 Statements -> Statement Statements : ['$1'|'$2'].

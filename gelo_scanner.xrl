@@ -10,7 +10,8 @@ Rules.
 function : {token, {function, TokenLine}}.
 if : {token, {'if', TokenLine}}.
 else : {token, {else, TokenLine}}.
-{L}* : {token, {id, TokenLine, TokenChars}}.
+@{L}* : {token, {id, TokenLine, TokenChars}}.
+{L}* : {token, {name, TokenLine, TokenChars}}.
 {D}+ : {token,{integer,TokenLine,TokenChars}}.
 {O} : {token, {list_to_atom(TokenChars), TokenLine}}.
 <   : {token, {lt, TokenLine}}.
