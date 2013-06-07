@@ -5,7 +5,9 @@
 
 start(S) ->
     Info = #info{},
+    %S.
     {NewInfo, Trans} = do_translate(S, [], Info),
+    %Trans.
     make_forms(Trans, NewInfo).
 do_translate([], Trans, Info) ->
     {Info, Trans};
@@ -24,8 +26,24 @@ do_fun({assign, Arg1, Arg2}) ->
     {match, 1, do_fun(Arg1), do_fun(Arg2)};
 do_fun({ifs, Arg1, Arg2}) ->
     {'case', 1, do_fun(Arg1), [{clause, 1, [{atom, 1, true}], [], do_fun(Arg2)}]};
+do_fun({ifs, Arg1, Arg2, {else, [], Arg3}}) ->
+    {'case', 1, do_fun(Arg1), [{clause, 1, [{atom, 1, true}], [], do_fun(Arg2)}, {clause, 1, [{var, 1, '_'}], [], do_fun(Arg3)}]};
+do_fun({ifs, Arg1, Arg2, Arg3}) ->
+    {'if', 1, [{clause, 1, [], [[do_fun(Arg1)]], do_fun(Arg2)}, do_fun(Arg3)]};
+do_fun({else, Arg1, Arg2}) ->
+    {clause, 1, [], [[do_fun(Arg1)]], do_fun(Arg2)};
 do_fun({gt, Arg1, Arg2}) ->
     {op, 1, '>', do_fun(Arg1), do_fun(Arg2)};
+do_fun({lt, Arg1, Arg2}) ->
+    {op, 1, '<', do_fun(Arg1), do_fun(Arg2)};
+do_fun({leq, Arg1, Arg2}) ->
+    {op, 1, '=<', do_fun(Arg1), do_fun(Arg2)};
+do_fun({geq, Arg1, Arg2}) ->
+    {op, 1, '>=', do_fun(Arg1), do_fun(Arg2)};
+do_fun({neq, Arg1, Arg2}) ->
+    {op, 1, '/=', do_fun(Arg1), do_fun(Arg2)};
+do_fun({eq, Arg1, Arg2}) ->
+    {op, 1, '=:=', do_fun(Arg1), do_fun(Arg2)};
 do_fun({subtract, Arg1, Arg2}) ->
     {op, 1, '-', do_fun(Arg1), do_fun(Arg2)};
 do_fun({add, Arg1, Arg2}) ->
