@@ -14,7 +14,12 @@ do_translate([], Trans, Info) ->
 do_translate([{function, Name, [], Fun}|T], Trans, Info) ->
     Exports = Info#info.exports,
     NewInfo = Info#info{exports = [{list_to_atom(Name), 0}|Exports]},
-    do_translate(T, [{function, 1, list_to_atom(Name), 0, [{clause, 1, [], [], do_fun(Fun)}]}|Trans], NewInfo).
+    do_translate(T, [{function, 1, list_to_atom(Name), 0, [{clause, 1, [], [], do_fun(Fun)}]}|Trans], NewInfo);
+
+do_translate([{function, Name, Vars, Fun}|T], Trans, Info) ->
+    Exports = Info#info.exports,
+    NewInfo = Info#info{exports = [{list_to_atom(Name), length(Vars)}|Exports]},
+    do_translate(T, [{function, 1, list_to_atom(Name), length(Vars), [{clause, 1, do_fun(Vars), [], do_fun(Fun)}]}|Trans], NewInfo).
 
 do_fun([]) ->
     [];
@@ -30,7 +35,7 @@ do_fun({ifs, Arg1, Arg2, {else, [], Arg3}}) ->
     {'case', 1, do_fun(Arg1), [{clause, 1, [{atom, 1, true}], [], do_fun(Arg2)}, {clause, 1, [{var, 1, '_'}], [], do_fun(Arg3)}]};
 do_fun({ifs, Arg1, Arg2, Arg3}) ->
     {'if', 1, [{clause, 1, [], [[do_fun(Arg1)]], do_fun(Arg2)}, do_fun(Arg3)]};
-do_fun({else, Arg1, Arg2}) ->
+do_fun({elseif, Arg1, Arg2}) ->
     {clause, 1, [], [[do_fun(Arg1)]], do_fun(Arg2)};
 do_fun({gt, Arg1, Arg2}) ->
     {op, 1, '>', do_fun(Arg1), do_fun(Arg2)};
