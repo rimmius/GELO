@@ -3,6 +3,7 @@ Definitions.
 D  = [0-9]
 O  = (\(|\)|\{|\}|\+|-|\*|/|;|=|,)
 L = [a-z_A-Z]
+St = [a-z_A-Z\s]
 S = [\000-\s]
 
 Rules.
@@ -10,10 +11,11 @@ Rules.
 function : {token, {function, TokenLine}}.
 if : {token, {'if', TokenLine}}.
 else : {token, {else, TokenLine}}.
-true : {token, {true, TokenLine}}.
-false : {token, {false, TokenLine}}.
+echo : {token, {echo, TokenLine}}.
 @{L}* : {token, {id, TokenLine, TokenChars}}.
 {L}* : {token, {name, TokenLine, TokenChars}}.
+"{L}*" : {token, {string, TokenLine, TokenChars}}.
+"{St}*" : {token, {string, TokenLine, TokenChars}}.
 {D}+ : {token,{integer,TokenLine,TokenChars}}.
 {O} : {token, {list_to_atom(TokenChars), TokenLine}}.
 <   : {token, {lt, TokenLine}}.

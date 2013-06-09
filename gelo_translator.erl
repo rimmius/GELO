@@ -41,6 +41,8 @@ do_fun({ifs, Arg1, Arg2, Arg3}) ->
     {'if', 1, lists:merge([{clause, 1, [], [[do_fun(Arg1)]], do_fun(Arg2)}], do_fun(Arg3))};
 do_fun({elseif, Arg1, Arg2}) ->
     {clause, 1, [], [[do_fun(Arg1)]], do_fun(Arg2)};
+do_fun({echo, Arg1}) ->
+    {call, 1, {remote, 1, {atom, 1, io}, {atom, 1, format}}, [{string, 1, "~p~n"}, {cons, 1, do_fun(Arg1), {nil, 1}}]};
 do_fun({gt, Arg1, Arg2}) ->
     {op, 1, '>', do_fun(Arg1), do_fun(Arg2)};
 do_fun({lt, Arg1, Arg2}) ->
@@ -57,10 +59,18 @@ do_fun({subtract, Arg1, Arg2}) ->
     {op, 1, '-', do_fun(Arg1), do_fun(Arg2)};
 do_fun({add, Arg1, Arg2}) ->
     {op, 1, '+', do_fun(Arg1), do_fun(Arg2)};
+do_fun({string, add, Arg1, Arg2}) ->
+    {op, 1, '++', do_fun(Arg1), do_fun(Arg2)};
 do_fun({multiply, Arg1, Arg2}) ->
     {op, 1, '*', do_fun(Arg1), do_fun(Arg2)};
 do_fun({divide, Arg1, Arg2}) ->
     {op, 1, '/', do_fun(Arg1), do_fun(Arg2)};
+do_fun({string, Arg1}) ->
+    [S] = string:tokens(Arg1, "\""),
+    {string, 1, S};
+do_fun({string, 1, Arg1}) ->
+    [S] = string:tokens(Arg1, "\""),
+    {string, 1, S};
 do_fun({integer, N}) ->
     {integer,1,N}.
 
