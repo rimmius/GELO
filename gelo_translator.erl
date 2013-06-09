@@ -25,6 +25,8 @@ do_fun([]) ->
     [];
 do_fun([H|T]) ->
     [do_fun(H)|do_fun(T)];
+do_fun({bool, Bool}) ->
+    {atom, 1, Bool};
 do_fun({variable, Var}) ->
     {var, 1, list_to_atom(Var)};
 do_fun({assign, Arg1, Arg2}) ->
@@ -34,8 +36,7 @@ do_fun({ifs, Arg1, Arg2}) ->
 do_fun({ifs, Arg1, Arg2, {else, [], Arg3}}) ->
     {'case', 1, do_fun(Arg1), [{clause, 1, [{atom, 1, true}], [], do_fun(Arg2)}, {clause, 1, [{var, 1, '_'}], [], do_fun(Arg3)}]};
 do_fun({ifs, Arg1, Arg2, Arg3}) ->
-    ElseList = do_fun(Arg3),
-    {'if', 1, lists:merge([{clause, 1, [], [[do_fun(Arg1)]], do_fun(Arg2)}], ElseList)};
+    {'if', 1, lists:merge([{clause, 1, [], [[do_fun(Arg1)]], do_fun(Arg2)}], do_fun(Arg3))};
 do_fun({elseif, Arg1, Arg2}) ->
     {clause, 1, [], [[do_fun(Arg1)]], do_fun(Arg2)};
 do_fun({gt, Arg1, Arg2}) ->

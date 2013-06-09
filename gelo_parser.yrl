@@ -1,5 +1,5 @@
-Nonterminals Functions Function Statements Statement Expression Param Params Comp If Else ElseIf ElseIfs comp math1 math2 assign.
-Terminals '+' '-' '*' '/' ';' '=' '(' ')' '{' '}' ',' eq integer id lt gt function 'if' neq leq geq else name.
+Nonterminals Functions Function Statements Statement Expression Param Params Comp If Else ElseIf ElseIfs comp math1 math2 assign bool.
+Terminals '+' '-' '*' '/' ';' '=' '(' ')' '{' '}' ',' eq integer id lt gt function 'if' neq leq geq else name true false.
 Rootsymbol Functions.
 
 Left 100 math1.
@@ -39,7 +39,10 @@ Expression -> Expression math1 Expression : {'$2', '$1', '$3'}.
 Expression -> Expression math2 Expression : {'$2', '$1', '$3'}.
 Expression -> integer : {integer, list_to_integer(unwrap('$1'))}.
 Expression -> id : {variable, unwrap('$1')}.
+Expression -> bool : {bool, '$1'}.
 
+bool -> true : true.
+bool -> false : false.
 comp -> lt : lt.
 comp -> gt : gt.
 comp -> eq : eq.

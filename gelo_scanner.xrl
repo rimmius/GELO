@@ -10,6 +10,8 @@ Rules.
 function : {token, {function, TokenLine}}.
 if : {token, {'if', TokenLine}}.
 else : {token, {else, TokenLine}}.
+true : {token, {true, TokenLine}}.
+false : {token, {false, TokenLine}}.
 @{L}* : {token, {id, TokenLine, TokenChars}}.
 {L}* : {token, {name, TokenLine, TokenChars}}.
 {D}+ : {token,{integer,TokenLine,TokenChars}}.
