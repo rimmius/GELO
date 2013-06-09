@@ -25,12 +25,14 @@ do_fun([]) ->
     [];
 do_fun([H|T]) ->
     [do_fun(H)|do_fun(T)];
-do_fun({bool, Bool}) ->
-    {atom, 1, Bool};
+do_fun({atom, Atom}) ->
+    {atom, 1, list_to_atom(Atom)};
 do_fun({variable, Var}) ->
     {var, 1, list_to_atom(Var)};
 do_fun({assign, Arg1, Arg2}) ->
     {match, 1, do_fun(Arg1), do_fun(Arg2)};
+do_fun({call, Arg1, Arg2}) ->
+    {call, 1, {atom, 1, list_to_atom(Arg1)}, do_fun(Arg2)};
 do_fun({ifs, Arg1, Arg2}) ->
     {'case', 1, do_fun(Arg1), [{clause, 1, [{atom, 1, true}], [], do_fun(Arg2)}]};
 do_fun({ifs, Arg1, Arg2, {else, [], Arg3}}) ->
