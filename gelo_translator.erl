@@ -34,7 +34,8 @@ do_fun({ifs, Arg1, Arg2}) ->
 do_fun({ifs, Arg1, Arg2, {else, [], Arg3}}) ->
     {'case', 1, do_fun(Arg1), [{clause, 1, [{atom, 1, true}], [], do_fun(Arg2)}, {clause, 1, [{var, 1, '_'}], [], do_fun(Arg3)}]};
 do_fun({ifs, Arg1, Arg2, Arg3}) ->
-    {'if', 1, [{clause, 1, [], [[do_fun(Arg1)]], do_fun(Arg2)}, do_fun(Arg3)]};
+    ElseList = do_fun(Arg3),
+    {'if', 1, lists:merge([{clause, 1, [], [[do_fun(Arg1)]], do_fun(Arg2)}], ElseList)};
 do_fun({elseif, Arg1, Arg2}) ->
     {clause, 1, [], [[do_fun(Arg1)]], do_fun(Arg2)};
 do_fun({gt, Arg1, Arg2}) ->
@@ -61,7 +62,7 @@ do_fun({integer, N}) ->
     {integer,1,N}.
 
 make_forms(Trans, Info) ->
-    {ok, Name, Beam} = compile:forms([{attribute,1,module,a}, {attribute, 1, export, Info#info.exports}|Trans]),
+    {ok, Name, Beam} = compile:forms([{attribute,1,module,function}, {attribute, 1, export, Info#info.exports}|Trans]),
     FileName = atom_to_list(Name) ++ ".beam",
     file:write_file(FileName, Beam),
     c:l(Name).

@@ -26,8 +26,8 @@ If  -> 'if' '(' Comp ')' '{' Statements '}' : {ifs, '$3', '$6'}.
 If -> 'if' '(' Comp ')' '{' Statements '}' Else : {ifs, '$3', '$6', '$8'}.
 If -> 'if' '(' Comp ')' '{' Statements '}' ElseIfs : {ifs, '$3', '$6', '$8'}.
 
-ElseIfs -> ElseIf : '$1'.
-ElseIfs -> ElseIf ElseIf : ['$1'|'$2'].
+ElseIfs -> ElseIf : ['$1'].
+ElseIfs -> ElseIf ElseIfs : ['$1'|'$2'].
 ElseIf -> else 'if' '(' Comp ')' '{' Statements '}' : {elseif, '$4', '$7'}.
 
 Else -> else '{' Statements '}' : {else, [], '$3'}.
