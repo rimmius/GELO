@@ -73,12 +73,21 @@ do_fun({list, Arg1}) ->
 do_fun({string, 1, Arg1}) ->
     [S] = string:tokens(Arg1, "\""),
     {string, 1, S};
+do_fun({get, {list, List}, {integer, Index}}) ->
+    do_fun(get_value(List, Index, 0));
 do_fun({integer, N}) ->
     {integer,1,N}.
 do_list([]) ->
     {nil, 1};
 do_list([H|T]) ->
     {cons, 1, do_fun(H), do_list(T)}.
+
+get_value([H|_T], I, I) ->
+    H;
+get_value([_H|T], I, A) ->
+    get_value(T, I, A+1);
+get_value([], _, _) ->
+    {atom, "undefined"}.
 
 make_forms(Trans, Info) ->
     {ok, Name, Beam} = compile:forms([{attribute,1,module,function}, {attribute, 1, export, Info#info.exports}|Trans]),
