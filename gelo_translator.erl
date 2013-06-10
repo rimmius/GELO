@@ -59,7 +59,7 @@ do_fun({subtract, Arg1, Arg2}) ->
     {op, 1, '-', do_fun(Arg1), do_fun(Arg2)};
 do_fun({add, Arg1, Arg2}) ->
     {op, 1, '+', do_fun(Arg1), do_fun(Arg2)};
-do_fun({string, add, Arg1, Arg2}) ->
+do_fun({string, concat, Arg1, Arg2}) ->
     {op, 1, '++', do_fun(Arg1), do_fun(Arg2)};
 do_fun({multiply, Arg1, Arg2}) ->
     {op, 1, '*', do_fun(Arg1), do_fun(Arg2)};
@@ -68,11 +68,17 @@ do_fun({divide, Arg1, Arg2}) ->
 do_fun({string, Arg1}) ->
     [S] = string:tokens(Arg1, "\""),
     {string, 1, S};
+do_fun({list, Arg1}) ->
+    do_list(Arg1);
 do_fun({string, 1, Arg1}) ->
     [S] = string:tokens(Arg1, "\""),
     {string, 1, S};
 do_fun({integer, N}) ->
     {integer,1,N}.
+do_list([]) ->
+    {nil, 1};
+do_list([H|T]) ->
+    {cons, 1, do_fun(H), do_list(T)}.
 
 make_forms(Trans, Info) ->
     {ok, Name, Beam} = compile:forms([{attribute,1,module,function}, {attribute, 1, export, Info#info.exports}|Trans]),

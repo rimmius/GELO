@@ -12,7 +12,8 @@ function : {token, {function, TokenLine}}.
 if : {token, {'if', TokenLine}}.
 else : {token, {else, TokenLine}}.
 echo : {token, {echo, TokenLine}}.
-@{L}* : {token, {id, TokenLine, TokenChars}}.
+list : {token, {list, TokenLine}}.
+\${L}* : {token, {id, TokenLine, TokenChars}}.
 {L}* : {token, {name, TokenLine, TokenChars}}.
 "{L}*" : {token, {string, TokenLine, TokenChars}}.
 "{St}*" : {token, {string, TokenLine, TokenChars}}.
@@ -24,6 +25,7 @@ echo : {token, {echo, TokenLine}}.
 != : {token, {neq, TokenLine}}.
 <= : {token, {leq, TokenLine}}.
 >= : {token, {geq, TokenLine}}.
+\. : {token, {concat, TokenLine}}.
 {S}+ : skip_token.
 
 Erlang code.
