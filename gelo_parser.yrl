@@ -1,5 +1,5 @@
 Nonterminals Functions Function Statements Statement Expression Param Params Comp If Else ElseIf ElseIfs comp math1 math2 assign.
-Terminals '+' '-' '*' '/' ';' '=' '(' ')' '{' '}' ',' '.' eq integer id lt gt function 'if' neq leq geq else name echo string concat list get.
+Terminals '+' '-' '*' '/' ';' '=' '(' ')' '{' '}' ',' '.' eq integer id lt gt function 'if' neq leq geq else name echo string concat list get 'and' 'or'.
 Rootsymbol Functions.
 
 Left 100 math1.
@@ -33,6 +33,8 @@ ElseIf -> else 'if' '(' Comp ')' '{' Statements '}' : {elseif, '$4', '$7'}.
 Else -> else '{' Statements '}' : {else, [], '$3'}.
 
 Comp -> Expression comp Expression : {'$2', '$1', '$3'}.
+Comp -> Comp 'and' Comp : {'$1', 'and', '$3'}.
+Comp -> Comp 'or' Comp : {'$1', 'or', '$3'}.
 
 Expression -> Expression '.' get '(' Expression ')' : {get, '$1', '$5'}.
 Expression -> list '(' Params ')' : {list, '$3'}.

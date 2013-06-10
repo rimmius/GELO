@@ -1,14 +1,14 @@
 -module(gelo_translator).
 
--export([start/1]).
+-export([start/2]).
 -record(info, {exports = []}).
 
-start(S) ->
+start(Mod, S) ->
     Info = #info{},
-    %S.
-    {NewInfo, Trans} = do_translate(S, [], Info),
+    S.
+    %{NewInfo, Trans} = do_translate(S, [], Info),
     %Trans.
-    make_forms(Trans, NewInfo).
+    %make_forms(Mod, Trans, NewInfo).
 do_translate([], Trans, Info) ->
     {Info, Trans};
 do_translate([{function, Name, [], Fun}|T], Trans, Info) ->
@@ -33,6 +33,8 @@ do_fun({assign, Arg1, Arg2}) ->
     {match, 1, do_fun(Arg1), do_fun(Arg2)};
 do_fun({call, Arg1, Arg2}) ->
     {call, 1, {atom, 1, list_to_atom(Arg1)}, do_fun(Arg2)};
+do_fun({ifs, {Arg1, 'and', Arg2}, Arg3}) ->
+    {'if', 1, [lists:merge([{clause, 1, [], [[do_fun(Arg1), do_fun(Arg2)]], do_fun(Arg3)}])]};
 do_fun({ifs, Arg1, Arg2}) ->
     {'case', 1, do_fun(Arg1), [{clause, 1, [{atom, 1, true}], [], do_fun(Arg2)}]};
 do_fun({ifs, Arg1, Arg2, {else, [], Arg3}}) ->
@@ -84,8 +86,8 @@ do_list([H|T]) ->
 
 
 
-make_forms(Trans, Info) ->
-    {ok, Name, Beam} = compile:forms([{attribute,1,module,function}, {attribute, 1, export, Info#info.exports}|Trans]),
+make_forms(Mod, Trans, Info) ->
+    {ok, Name, Beam} = compile:forms([{attribute,1,module,Mod}, {attribute, 1, export, Info#info.exports}|Trans]),
     FileName = atom_to_list(Name) ++ ".beam",
     file:write_file(FileName, Beam),
     c:l(Name).
