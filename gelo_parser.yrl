@@ -1,4 +1,4 @@
-Nonterminals Functions Function Statements Statement Expression Param Params Comp If Else ElseIf ElseIfs comp math1 math2 assign.
+Nonterminals Functions Function Statements Statement Expression Param Params Comps Comp If Else ElseIf ElseIfs comp math1 math2 assign.
 Terminals '+' '-' '*' '/' ';' '=' '(' ')' '{' '}' ',' '.' eq integer id lt gt function 'if' neq leq geq else name echo string concat list get 'and' 'or'.
 Rootsymbol Functions.
 
@@ -22,16 +22,18 @@ Params -> Param : ['$1'].
 Params -> Param ',' Params : ['$1'|'$3'].
 Param -> Expression : '$1'.
 
-If  -> 'if' '(' Comp ')' '{' Statements '}' : {ifs, '$3', '$6'}.
-If -> 'if' '(' Comp ')' '{' Statements '}' Else : {ifs, '$3', '$6', '$8'}.
-If -> 'if' '(' Comp ')' '{' Statements '}' ElseIfs : {ifs, '$3', '$6', '$8'}.
+If  -> 'if' '(' Comps ')' '{' Statements '}' : {ifs, '$3', '$6'}.
+If -> 'if' '(' Comps ')' '{' Statements '}' Else : {ifs, '$3', '$6', '$8'}.
+If -> 'if' '(' Comps ')' '{' Statements '}' ElseIfs : {ifs, '$3', '$6', '$8'}.
 
 ElseIfs -> ElseIf : ['$1'].
 ElseIfs -> ElseIf ElseIfs : ['$1'|'$2'].
-ElseIf -> else 'if' '(' Comp ')' '{' Statements '}' : {elseif, '$4', '$7'}.
+ElseIf -> else 'if' '(' Comps ')' '{' Statements '}' : {elseif, '$4', '$7'}.
 
 Else -> else '{' Statements '}' : {else, [], '$3'}.
 
+Comps -> Comp : ['$1'].
+Comps -> Comp Comps : ['$1'|'$2'].
 Comp -> Expression comp Expression : {'$2', '$1', '$3'}.
 Comp -> Comp 'and' Comp : {'$1', 'and', '$3'}.
 Comp -> Comp 'or' Comp : {'$1', 'or', '$3'}.
