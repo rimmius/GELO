@@ -42,7 +42,7 @@ Expression -> Expression '.' get '(' Expression ')' : {get, '$1', '$5'}.
 Expression -> list '(' Params ')' : {list, '$3'}.
 Expression -> Expression concat Expression : {string, concat, '$1', '$3'}.
 Expression -> string : {string, unwrap('$1')}.
-Expression -> Expression assign Expression : {'$2', '$1', '$3'}.
+Expression -> Expression assign Statement : {'$2', '$1', '$3'}.
 Expression -> Expression math1 Expression : {'$2', '$1', '$3'}.
 Expression -> Expression math2 Expression : {'$2', '$1', '$3'}.
 Expression -> integer : {integer, list_to_integer(unwrap('$1'))}.
