@@ -45,6 +45,8 @@ do_fun({elseif, Arg1, Arg2}) ->
     {clause, 1, [], [lists:flatten(do_fun(Arg1))], do_fun(Arg2)};
 do_fun({echo, Arg1}) ->
     {call, 1, {remote, 1, {atom, 1, io}, {atom, 1, format}}, [{string, 1, "~p~n"}, {cons, 1, do_fun(Arg1), {nil, 1}}]};
+do_fun({ext, {name, 1, Mod}, {name, 1, Fun}, Args}) ->
+    {call, 1, {remote, 1, {atom, 1, list_to_atom(Mod)}, {atom, 1, list_to_atom(Fun)}}, do_fun(Args)};
 do_fun({gt, Arg1, Arg2}) ->
     {op, 1, '>', do_fun(Arg1), do_fun(Arg2)};
 do_fun({lt, Arg1, Arg2}) ->

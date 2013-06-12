@@ -29,6 +29,7 @@ or : {token, {'or', TokenLine}}.
 <= : {token, {leq, TokenLine}}.
 >= : {token, {geq, TokenLine}}.
 \. : {token, {concat, TokenLine}}.
+\@ : {token, {ext, TokenLine}}.
 {S}+ : skip_token.
 
 Erlang code.
