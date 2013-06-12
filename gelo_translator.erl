@@ -91,4 +91,4 @@ make_forms(Mod, Trans, Info) ->
     FileName = atom_to_list(Name) ++ ".beam",
     file:write_file(FileName, Beam),
     c:l(Name),
-    Mod:ab().
+    {ok, Name}.
