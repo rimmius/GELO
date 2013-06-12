@@ -16,6 +16,7 @@ list : {token, {list, TokenLine}}.
 get : {token, {get, TokenLine}}.
 and : {token, {'and', TokenLine}}.
 or : {token, {'or', TokenLine}}.
+spawn : {token, {spawn, TokenLine}}.
 \${L}* : {token, {id, TokenLine, TokenChars}}.
 {L}* : {token, {name, TokenLine, TokenChars}}.
 "{L}*" : {token, {string, TokenLine, TokenChars}}.
