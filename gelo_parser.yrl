@@ -1,5 +1,5 @@
 Nonterminals Functions Function Statements Statement Expression Param Params Comps Comp If Else ElseIf ElseIfs comp math1 math2 assign.
-Terminals '+' '-' '*' '/' ';' '=' '(' ')' '{' '}' ',' '.' eq integer id lt gt function 'if' neq leq geq else name echo string concat list get 'and' 'or' ext spawn.
+Terminals '+' '-' '*' '/' ';' '=' '(' ')' '{' '}' ',' '.' eq integer id lt gt function 'if' neq leq geq else name echo string concat list get 'and' 'or' ext spawn send recv.
 Rootsymbol Functions.
 
 Left 100 math1.
@@ -38,10 +38,15 @@ Comp -> Expression comp Expression : {'$2', '$1', '$3'}.
 Comp -> Comp 'and' Comp : {'$1', 'and', '$3'}.
 Comp -> Comp 'or' Comp : {'$1', 'or', '$3'}.
 
+Expression -> ext send '(' Expression ',' Expression ')' : {bang, '$4', '$6'}.
+Expression -> ext recv '(' ')' '{' Statements '}' : {recv, '$6'}.
+Expression -> '(' Expression ')' '{' Statements '}' : {recvopt, '$2', '$5'}.
+Expression -> '{' Params '}' : {tuple, '$2'}.
 Expression -> ext spawn '(' Params ')' : {spawn, '$4'}.
 Expression -> ext name '.' name '(' Params ')' : {ext, '$2', '$4', '$6'}.
 Expression -> Expression '.' get '(' Expression ')' : {get, '$1', '$5'}.
 Expression -> list '(' Params ')' : {list, '$3'}.
+Expression -> list '(' ')' : {list, []}.
 Expression -> Expression concat Expression : {string, concat, '$1', '$3'}.
 Expression -> string : {string, unwrap('$1')}.
 Expression -> Expression assign Statement : {'$2', '$1', '$3'}.

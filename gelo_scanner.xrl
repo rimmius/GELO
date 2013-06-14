@@ -17,11 +17,13 @@ get : {token, {get, TokenLine}}.
 and : {token, {'and', TokenLine}}.
 or : {token, {'or', TokenLine}}.
 spawn : {token, {spawn, TokenLine}}.
+send : {token, {send, TokenLine}}.
+receive : {token, {recv, TokenLine}}.
+{D}+ : {token,{integer,TokenLine,TokenChars}}.
 \${L}* : {token, {id, TokenLine, TokenChars}}.
 {L}* : {token, {name, TokenLine, TokenChars}}.
 "{L}*" : {token, {string, TokenLine, TokenChars}}.
 "{St}*" : {token, {string, TokenLine, TokenChars}}.
-{D}+ : {token,{integer,TokenLine,TokenChars}}.
 {O} : {token, {list_to_atom(TokenChars), TokenLine}}.
 <   : {token, {lt, TokenLine}}.
 >   : {token, {gt, TokenLine}}.

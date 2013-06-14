@@ -81,6 +81,14 @@ do_fun({string, 1, Arg1}) ->
     {string, 1, S};
 do_fun({get, List, Index}) ->
     {call, 1, {remote, 1, {atom, 1, gelo_lib}, {atom, 1, get_value}}, [do_fun(List), do_fun(Index), {integer, 1, 0}]};
+do_fun({bang, Arg1, Arg2}) ->
+    {op, 1, '!', do_fun(Arg1), do_fun(Arg2)};
+do_fun({recv, Arg}) ->
+    {'receive', 1, do_fun(Arg)};
+do_fun({recvopt, Arg1, Arg2}) ->
+    {clause, 1, [do_fun(Arg1)], [], do_fun(Arg2)};
+do_fun({tuple, Arg}) ->
+    {tuple, 1, do_fun(Arg)};
 do_fun({integer, N}) ->
     {integer,1,N}.
 do_list([]) ->
