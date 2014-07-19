@@ -1,0 +1,4 @@
+function helloGELO(){
+    var helloGELO = "Hello GELO!";
+    console.log(helloGELO);
+}

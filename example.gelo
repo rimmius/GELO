@@ -1,0 +1,12 @@
+function helloWorld(){
+    var helloWorld = "Hello  World!";
+    console.log(helloWorld);
+}
+
+function spawnFuns(){
+    thread.spawn(helloWorld());
+}
+
+function callAnotherMod(){
+    example_two.helloGELO();
+}

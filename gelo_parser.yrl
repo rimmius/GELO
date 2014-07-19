@@ -1,5 +1,5 @@
 Nonterminals Functions Function Statements Statement Expression Param Params Comps Comp If Else ElseIf ElseIfs comp math1 math2 assign.
-Terminals '+' '-' '*' '/' ';' '=' '(' ')' '{' '}' ',' '.' eq integer id lt gt function 'if' neq leq geq else name echo string concat list get 'and' 'or' ext spawn send recv.
+Terminals '+' '-' '*' '/' ';' '=' '(' ')' '{' '}' ',' '.' eq integer lt gt function 'if' neq leq geq else name console log string concat list get 'and' 'or' spawn send recv variable return atomic thread.
 Rootsymbol Functions.
 
 Left 100 math1.
@@ -38,12 +38,14 @@ Comp -> Expression comp Expression : {'$2', '$1', '$3'}.
 Comp -> Comp 'and' Comp : {'$1', 'and', '$3'}.
 Comp -> Comp 'or' Comp : {'$1', 'or', '$3'}.
 
-Expression -> ext send '(' Expression ',' Expression ')' : {bang, '$4', '$6'}.
-Expression -> ext recv '(' ')' '{' Statements '}' : {recv, '$6'}.
+Expression -> console '.' log '(' Expression ')' : {echo, '$5'}.
+Expression -> thread '.' send '(' Expression ',' Expression ')' : {bang, '$5', '$7'}.
+Expression -> thread '.' recv '(' ')' '{' Statements '}' : {recv, '$7'}.
 Expression -> '(' Expression ')' '{' Statements '}' : {recvopt, '$2', '$5'}.
 Expression -> '{' Params '}' : {tuple, '$2'}.
-Expression -> ext spawn '(' Params ')' : {spawn, '$4'}.
-Expression -> ext name '.' name '(' Params ')' : {ext, '$2', '$4', '$6'}.
+Expression -> thread '.' spawn '(' Params ')' : {spawn, '$5'}.
+Expression -> name '.' name '(' Params ')' : {ext, '$1', '$3', '$5'}.
+Expression -> name '.' name '(' ')' : {ext, '$1', '$3', []}.
 Expression -> Expression '.' get '(' Expression ')' : {get, '$1', '$5'}.
 Expression -> list '(' Params ')' : {list, '$3'}.
 Expression -> list '(' ')' : {list, []}.
@@ -54,11 +56,12 @@ Expression -> Expression assign Expression : {'$2', '$1', '$3'}.
 Expression -> Expression math1 Expression : {'$2', '$1', '$3'}.
 Expression -> Expression math2 Expression : {'$2', '$1', '$3'}.
 Expression -> integer : {integer, list_to_integer(unwrap('$1'))}.
-Expression -> id : {variable, unwrap('$1')}.
+Expression -> variable name : {variable, unwrap('$2')}.
+Expression -> return name : {variable, unwrap('$2')}.
 Expression -> name '(' Params ')' : {call, unwrap('$1'), '$3'}.
 Expression -> name '(' ')' : {call, unwrap('$1'), []}.
-Expression -> name : {atom, unwrap('$1')}.
-Expression -> echo Expression : {echo, '$2'}.
+Expression -> atomic name : {atom, unwrap('$2')}.
+Expression -> name : {variable, unwrap('$1')}.
 
 comp -> lt : lt.
 comp -> gt : gt.

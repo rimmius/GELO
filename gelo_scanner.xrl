@@ -2,16 +2,20 @@ Definitions.
 
 D  = [0-9]
 O  = (\(|\)|\{|\}|\+|-|\*|/|;|=|,|\.)
-L = [0-9_a-z_A-Z]
-St = [a-z_A-Z\s]
+L = [\_0-9_a-z_A-Z]
+St = .
 S = [\000-\s]
 
 Rules.
 
+thread : {token, {thread, TokenLine}}.
+return : {token, {variable, TokenLine}}.
+var : {token, {variable, TokenLine}}.
 function : {token, {function, TokenLine}}.
 if : {token, {'if', TokenLine}}.
 else : {token, {else, TokenLine}}.
-echo : {token, {echo, TokenLine}}.
+console : {token, {console, TokenLine}}.
+log : {token, {log, TokenLine}}.
 list : {token, {list, TokenLine}}.
 get : {token, {get, TokenLine}}.
 and : {token, {'and', TokenLine}}.
@@ -20,7 +24,7 @@ spawn : {token, {spawn, TokenLine}}.
 send : {token, {send, TokenLine}}.
 receive : {token, {recv, TokenLine}}.
 {D}+ : {token,{integer,TokenLine,TokenChars}}.
-\${L}* : {token, {id, TokenLine, TokenChars}}.
+\$ : {token, {atomic, TokenLine, TokenChars}}.
 {L}* : {token, {name, TokenLine, TokenChars}}.
 "{L}*" : {token, {string, TokenLine, TokenChars}}.
 "{St}*" : {token, {string, TokenLine, TokenChars}}.
