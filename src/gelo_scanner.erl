@@ -12,7 +12,7 @@
 -export([format_error/1]).
 
 %% User code. This is placed here to allow extra attributes.
--file("./gelo_scanner.xrl", 42).
+-file("src/gelo_scanner.xrl", 42).
 
 -export([scan/1]).
 
@@ -277,7 +277,7 @@ yysuf(List, N) -> lists:nthtail(N, List).
 %% return signal either an unrecognised character or end of current
 %% input.
 
--file("./gelo_scanner.erl", 280).
+-file("src/gelo_scanner.erl", 280).
 yystate() -> 78.
 
 yystate(81, [101|Ics], Line, Tlen, _, _) ->
@@ -1398,152 +1398,152 @@ yyaction(29, _, _, _) ->
 yyaction(_, _, _, _) -> error.
 
 -compile({inline,yyaction_0/1}).
--file("./gelo_scanner.xrl", 9).
+-file("src/gelo_scanner.xrl", 9).
 yyaction_0(TokenLine) ->
      { token, { thread, TokenLine } } .
 
 -compile({inline,yyaction_1/1}).
--file("./gelo_scanner.xrl", 10).
+-file("src/gelo_scanner.xrl", 10).
 yyaction_1(TokenLine) ->
      { token, { variable, TokenLine } } .
 
 -compile({inline,yyaction_2/1}).
--file("./gelo_scanner.xrl", 11).
+-file("src/gelo_scanner.xrl", 11).
 yyaction_2(TokenLine) ->
      { token, { variable, TokenLine } } .
 
 -compile({inline,yyaction_3/1}).
--file("./gelo_scanner.xrl", 12).
+-file("src/gelo_scanner.xrl", 12).
 yyaction_3(TokenLine) ->
      { token, { function, TokenLine } } .
 
 -compile({inline,yyaction_4/1}).
--file("./gelo_scanner.xrl", 13).
+-file("src/gelo_scanner.xrl", 13).
 yyaction_4(TokenLine) ->
      { token, { 'if', TokenLine } } .
 
 -compile({inline,yyaction_5/1}).
--file("./gelo_scanner.xrl", 14).
+-file("src/gelo_scanner.xrl", 14).
 yyaction_5(TokenLine) ->
      { token, { else, TokenLine } } .
 
 -compile({inline,yyaction_6/1}).
--file("./gelo_scanner.xrl", 15).
+-file("src/gelo_scanner.xrl", 15).
 yyaction_6(TokenLine) ->
      { token, { console, TokenLine } } .
 
 -compile({inline,yyaction_7/1}).
--file("./gelo_scanner.xrl", 16).
+-file("src/gelo_scanner.xrl", 16).
 yyaction_7(TokenLine) ->
      { token, { log, TokenLine } } .
 
 -compile({inline,yyaction_8/1}).
--file("./gelo_scanner.xrl", 17).
+-file("src/gelo_scanner.xrl", 17).
 yyaction_8(TokenLine) ->
      { token, { list, TokenLine } } .
 
 -compile({inline,yyaction_9/1}).
--file("./gelo_scanner.xrl", 18).
+-file("src/gelo_scanner.xrl", 18).
 yyaction_9(TokenLine) ->
      { token, { get, TokenLine } } .
 
 -compile({inline,yyaction_10/1}).
--file("./gelo_scanner.xrl", 19).
+-file("src/gelo_scanner.xrl", 19).
 yyaction_10(TokenLine) ->
      { token, { 'and', TokenLine } } .
 
 -compile({inline,yyaction_11/1}).
--file("./gelo_scanner.xrl", 20).
+-file("src/gelo_scanner.xrl", 20).
 yyaction_11(TokenLine) ->
      { token, { 'or', TokenLine } } .
 
 -compile({inline,yyaction_12/1}).
--file("./gelo_scanner.xrl", 21).
+-file("src/gelo_scanner.xrl", 21).
 yyaction_12(TokenLine) ->
      { token, { spawn, TokenLine } } .
 
 -compile({inline,yyaction_13/1}).
--file("./gelo_scanner.xrl", 22).
+-file("src/gelo_scanner.xrl", 22).
 yyaction_13(TokenLine) ->
      { token, { send, TokenLine } } .
 
 -compile({inline,yyaction_14/1}).
--file("./gelo_scanner.xrl", 23).
+-file("src/gelo_scanner.xrl", 23).
 yyaction_14(TokenLine) ->
      { token, { recv, TokenLine } } .
 
 -compile({inline,yyaction_15/2}).
--file("./gelo_scanner.xrl", 24).
+-file("src/gelo_scanner.xrl", 24).
 yyaction_15(TokenChars, TokenLine) ->
      { token, { integer, TokenLine, TokenChars } } .
 
 -compile({inline,yyaction_16/2}).
--file("./gelo_scanner.xrl", 25).
+-file("src/gelo_scanner.xrl", 25).
 yyaction_16(TokenChars, TokenLine) ->
      { token, { atomic, TokenLine, TokenChars } } .
 
 -compile({inline,yyaction_17/2}).
--file("./gelo_scanner.xrl", 26).
+-file("src/gelo_scanner.xrl", 26).
 yyaction_17(TokenChars, TokenLine) ->
      { token, { name, TokenLine, TokenChars } } .
 
 -compile({inline,yyaction_18/2}).
--file("./gelo_scanner.xrl", 27).
+-file("src/gelo_scanner.xrl", 27).
 yyaction_18(TokenChars, TokenLine) ->
      { token, { string, TokenLine, TokenChars } } .
 
 -compile({inline,yyaction_19/2}).
--file("./gelo_scanner.xrl", 28).
+-file("src/gelo_scanner.xrl", 28).
 yyaction_19(TokenChars, TokenLine) ->
      { token, { string, TokenLine, TokenChars } } .
 
 -compile({inline,yyaction_20/2}).
--file("./gelo_scanner.xrl", 29).
+-file("src/gelo_scanner.xrl", 29).
 yyaction_20(TokenChars, TokenLine) ->
      { token, { list_to_atom (TokenChars), TokenLine } } .
 
 -compile({inline,yyaction_21/1}).
--file("./gelo_scanner.xrl", 30).
+-file("src/gelo_scanner.xrl", 30).
 yyaction_21(TokenLine) ->
      { token, { lt, TokenLine } } .
 
 -compile({inline,yyaction_22/1}).
--file("./gelo_scanner.xrl", 31).
+-file("src/gelo_scanner.xrl", 31).
 yyaction_22(TokenLine) ->
      { token, { gt, TokenLine } } .
 
 -compile({inline,yyaction_23/1}).
--file("./gelo_scanner.xrl", 32).
+-file("src/gelo_scanner.xrl", 32).
 yyaction_23(TokenLine) ->
      { token, { eq, TokenLine } } .
 
 -compile({inline,yyaction_24/1}).
--file("./gelo_scanner.xrl", 33).
+-file("src/gelo_scanner.xrl", 33).
 yyaction_24(TokenLine) ->
      { token, { neq, TokenLine } } .
 
 -compile({inline,yyaction_25/1}).
--file("./gelo_scanner.xrl", 34).
+-file("src/gelo_scanner.xrl", 34).
 yyaction_25(TokenLine) ->
      { token, { leq, TokenLine } } .
 
 -compile({inline,yyaction_26/1}).
--file("./gelo_scanner.xrl", 35).
+-file("src/gelo_scanner.xrl", 35).
 yyaction_26(TokenLine) ->
      { token, { geq, TokenLine } } .
 
 -compile({inline,yyaction_27/1}).
--file("./gelo_scanner.xrl", 36).
+-file("src/gelo_scanner.xrl", 36).
 yyaction_27(TokenLine) ->
      { token, { concat, TokenLine } } .
 
 -compile({inline,yyaction_28/1}).
--file("./gelo_scanner.xrl", 37).
+-file("src/gelo_scanner.xrl", 37).
 yyaction_28(TokenLine) ->
      { token, { ext, TokenLine } } .
 
 -compile({inline,yyaction_29/0}).
--file("./gelo_scanner.xrl", 38).
+-file("src/gelo_scanner.xrl", 38).
 yyaction_29() ->
      skip_token .
 

@@ -1,0 +1,12 @@
+{application, gelo,
+ [
+  {description, ""},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib
+                 ]},
+  {mod, { gelo_app, []}},
+  {env, []}
+ ]}.
