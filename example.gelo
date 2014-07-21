@@ -3,8 +3,16 @@ function helloWorld(){
     console.log(helloWorld);
 }
 
-function spawnFuns(){
-    thread.spawn(helloWorld());
+function spawnFuns(a){
+    console.log(a);
+    var me = self();
+    thread.spawn(spawnFuns2(me));
+    var b = thread.receive();
+    console.log(b);
+}
+
+function spawnFuns2(parent){
+    thread.send(parent, "Hello Parent");
 }
 
 function callAnotherMod(){

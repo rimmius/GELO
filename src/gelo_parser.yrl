@@ -40,7 +40,7 @@ Comp -> Comp 'or' Comp : {'$1', 'or', '$3'}.
 
 Expression -> console '.' log '(' Expression ')' : {echo, '$5'}.
 Expression -> thread '.' send '(' Expression ',' Expression ')' : {bang, '$5', '$7'}.
-Expression -> thread '.' recv '(' ')' '{' Statements '}' : {recv, '$7'}.
+Expression -> Expression assign thread '.' recv '(' ')' : {recv, '$1'}.
 Expression -> '(' Expression ')' '{' Statements '}' : {recvopt, '$2', '$5'}.
 Expression -> '{' Params '}' : {tuple, '$2'}.
 Expression -> thread '.' spawn '(' Params ')' : {spawn, '$5'}.

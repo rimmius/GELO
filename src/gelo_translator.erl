@@ -84,7 +84,7 @@ do_fun({get, List, Index}) ->
 do_fun({bang, Arg1, Arg2}) ->
     {op, 1, '!', do_fun(Arg1), do_fun(Arg2)};
 do_fun({recv, Arg}) ->
-    {'receive', 1, do_fun(Arg)};
+    {'receive', 1, do_receive(Arg)};
 do_fun({recvopt, Arg1, Arg2}) ->
     {clause, 1, [do_fun(Arg1)], [], do_fun(Arg2)};
 do_fun({tuple, Arg}) ->
@@ -95,6 +95,9 @@ do_list([]) ->
     {nil, 1};
 do_list([H|T]) ->
     {cons, 1, do_fun(H), do_list(T)}.
+
+do_receive(Arg) ->
+    do_fun([{recvopt, Arg, [Arg]}]).
 
 do_spawn([]) ->
     [];

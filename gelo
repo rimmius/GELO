@@ -7,12 +7,13 @@ main(["compile", Mod]) ->
         gelo:file(list_to_atom(Mod)),
         io:format("Compiled: ~p~n", [Mod])
     catch
-        _:_ ->
+        Error:Reason ->
+            io:format("~p: ~p~n", [Error, Reason]),
             usage()
     end;
 main([Mod, Fun]) ->
     main([Mod, Fun, []]);
-main([Mod, Fun, Args]) ->
+main([Mod, Fun|Args]) ->
     erlang:apply(list_to_atom(Mod), list_to_atom(Fun), Args);
 main(_) ->
     usage().
