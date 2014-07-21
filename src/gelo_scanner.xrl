@@ -23,7 +23,6 @@ spawn : {token, {spawn, TokenLine}}.
 send : {token, {send, TokenLine}}.
 receive : {token, {recv, TokenLine}}.
 {D}+ : {token,{integer,TokenLine,TokenChars}}.
-\$ : {token, {atomic, TokenLine, TokenChars}}.
 {L}* : {token, {name, TokenLine, TokenChars}}.
 "{L}*" : {token, {string, TokenLine, TokenChars}}.
 "{St}*" : {token, {string, TokenLine, TokenChars}}.
@@ -35,7 +34,7 @@ receive : {token, {recv, TokenLine}}.
 <= : {token, {leq, TokenLine}}.
 >= : {token, {geq, TokenLine}}.
 \. : {token, {concat, TokenLine}}.
-\@ : {token, {ext, TokenLine}}.
+\@ : {token, {atomic, TokenLine}}.
 {S}+ : skip_token.
 
 Erlang code.

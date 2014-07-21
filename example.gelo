@@ -12,7 +12,7 @@ function spawnFuns(a){
 }
 
 function spawnFuns2(parent){
-    thread.send(parent, "Hello Parent");
+    thread.send(parent, @hello_parent);
 }
 
 function listsExample(){
