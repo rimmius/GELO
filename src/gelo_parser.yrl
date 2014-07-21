@@ -1,5 +1,5 @@
 Nonterminals Functions Function Statements Statement Expression Param Params Comps Comp If Else ElseIf ElseIfs comp math1 math2 assign.
-Terminals '+' '-' '*' '/' ';' '=' '(' ')' '{' '}' ',' '.' eq integer lt gt function 'if' neq leq geq else name console log string concat list get 'and' 'or' spawn send recv variable return atomic thread.
+Terminals '+' '-' '*' '/' ';' '=' '(' ')' '{' '}' ',' '.' '[' ']' eq integer lt gt function 'if' neq leq geq else name console log string concat get 'and' 'or' spawn send recv variable return atomic thread.
 Rootsymbol Functions.
 
 Left 100 math1.
@@ -47,8 +47,8 @@ Expression -> thread '.' spawn '(' Params ')' : {spawn, '$5'}.
 Expression -> name '.' name '(' Params ')' : {ext, '$1', '$3', '$5'}.
 Expression -> name '.' name '(' ')' : {ext, '$1', '$3', []}.
 Expression -> Expression '.' get '(' Expression ')' : {get, '$1', '$5'}.
-Expression -> list '(' Params ')' : {list, '$3'}.
-Expression -> list '(' ')' : {list, []}.
+Expression -> '[' Params ']' : {list, '$2'}.
+Expression -> '[' ']' : {list, []}.
 Expression -> Expression concat Expression : {string, concat, '$1', '$3'}.
 Expression -> string : {string, unwrap('$1')}.
 Expression -> Expression assign Statement : {'$2', '$1', '$3'}.

@@ -12,7 +12,7 @@ main(["compile", Mod]) ->
             usage()
     end;
 main([Mod, Fun]) ->
-    main([Mod, Fun, []]);
+    erlang:apply(list_to_atom(Mod), list_to_atom(Fun), []);
 main([Mod, Fun|Args]) ->
     erlang:apply(list_to_atom(Mod), list_to_atom(Fun), Args);
 main(_) ->

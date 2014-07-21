@@ -1,7 +1,7 @@
 Definitions.
 
 D  = [0-9]
-O  = (\(|\)|\{|\}|\+|-|\*|/|;|=|,|\.)
+O  = (\(|\)|\{|\}|\+|-|\*|/|;|=|\[|\]|,|\.)
 L = [\_0-9_a-z_A-Z]
 St = .
 S = [\000-\s]
@@ -16,7 +16,6 @@ if : {token, {'if', TokenLine}}.
 else : {token, {else, TokenLine}}.
 console : {token, {console, TokenLine}}.
 log : {token, {log, TokenLine}}.
-list : {token, {list, TokenLine}}.
 get : {token, {get, TokenLine}}.
 and : {token, {'and', TokenLine}}.
 or : {token, {'or', TokenLine}}.
