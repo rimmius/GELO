@@ -6,10 +6,32 @@ INSTALLATION:<br>
 git clone git@github.com:gustehn/GELO.git<br>
 cd GELO<br>
 ./rebar compile<br>
-
-Hit ./gelo for usage.
-
-Look into example.gelo for them examples!
+<br>
+Webserver up and spinning in 8 lines of code:
+example.gelo
+```
+function webServer(){
+    var port = 1337;
+    server.create( port
+                   , function(request, socket){
+                         console.log(request);
+                         server.send( socket,
+                         200,
+                         "Content-Type: text/html",
+                         "Hello World");
+                  });
+}
+```
+Compile it:
+```
+$ ./gelo compile example
+Compilation complete: example
+```
+And run it:
+```
+./gelo example webServer
+```
+Look into example.gelo for more examples!
 
 Happy hacking
 
