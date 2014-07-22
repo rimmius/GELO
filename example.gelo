@@ -21,20 +21,13 @@ function listsExample(){
 
 function webServer(){
     var port = 1337;
-    {@ok, listenSocket} = server.create(port, []);
-    listenAndReply(listenSocket);
+    server.create( port
+                   , fun(request, socket){
+                         console.log(request);
+                         server.send(socket, 200, "Content-Type: text/html", "Hello World");
+                  });
 }
 
 function callAnotherMod(){
     example_two.helloGELO();
-}
-
-function listenAndReply(listenSocket){
-    console.log("listening");
-    {@ok, socket} = server.accept(listenSocket);
-    console.log("accepted");
-    {@tcp, socket, request} = thread.receive();
-    server.send(socket, 200, "Content-Type: text/html", "Hello World");
-    server.close(socket);
-    listenAndReply(listenSocket);
 }

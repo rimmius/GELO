@@ -8,6 +8,7 @@ S = [\000-\s\%]
 
 Rules.
 
+fun : {token, {'fun', TokenLine}}.
 server.create : {token, {servercreate, TokenLine}}.
 server.accept : {token, {serveraccept, TokenLine}}.
 server.send : {token, {serversend, TokenLine}}.

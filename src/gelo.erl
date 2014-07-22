@@ -20,7 +20,8 @@ setup() ->
 compile([F]) ->
     case file:read_file(atom_to_list(F)++".gelo") of
 	{ok, B} ->
-	    gelo:string(F, binary_to_list(B));
+	    gelo:string(F, binary_to_list(B)),
+            io:format("Compilation complete: ~p~n", [F]);
 	What ->
 	    What
     end.
