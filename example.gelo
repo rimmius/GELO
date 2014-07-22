@@ -22,9 +22,9 @@ function listsExample(){
 function webServer(){
     var port = 1337;
     server.create( port
-                   , fun(request, socket){
-                         console.log(request);
-                         server.send(socket, 200, "Content-Type: text/html", "Hello World");
+                   , function(request, socket){
+                                                   console.log(request);
+                                                   server.send(socket, 200, "Content-Type: text/html", "Hello World");
                   });
 }
 
