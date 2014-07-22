@@ -3,11 +3,15 @@ Definitions.
 D  = [0-9]
 O  = (\(|\)|\{|\}|\+|-|\*|/|;|=|\[|\]|,|\.)
 L = [\_0-9_a-z_A-Z]
-St = .
+St = (\\x{H}+;|\\.|[^"])*
 S = [\000-\s]
 
 Rules.
 
+server.create : {token, {servercreate, TokenLine}}.
+server.accept : {token, {serveraccept, TokenLine}}.
+server.send : {token, {serversend, TokenLine}}.
+server.close : {token, {serverclose, TokenLine}}.
 thread : {token, {thread, TokenLine}}.
 return : {token, {variable, TokenLine}}.
 var : {token, {variable, TokenLine}}.
@@ -20,11 +24,10 @@ get : {token, {get, TokenLine}}.
 and : {token, {'and', TokenLine}}.
 or : {token, {'or', TokenLine}}.
 spawn : {token, {spawn, TokenLine}}.
-send : {token, {send, TokenLine}}.
+thread.send : {token, {threadsend, TokenLine}}.
 receive : {token, {recv, TokenLine}}.
 {D}+ : {token,{integer,TokenLine,TokenChars}}.
 {L}* : {token, {name, TokenLine, TokenChars}}.
-"{L}*" : {token, {string, TokenLine, TokenChars}}.
 "{St}*" : {token, {string, TokenLine, TokenChars}}.
 {O} : {token, {list_to_atom(TokenChars), TokenLine}}.
 <   : {token, {lt, TokenLine}}.

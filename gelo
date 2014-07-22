@@ -1,25 +1,8 @@
-#!/usr/bin/env escript
-%% -*- erlang -*-
-%%! -smp enable -sname gelo -mnesia debug verbose
-main(["compile", Mod]) ->
-    try
-        code:add_path("ebin"),
-        gelo:file(list_to_atom(Mod)),
-        io:format("Compiled: ~p~n", [Mod])
-    catch
-        Error:Reason ->
-            io:format("~p: ~p~n", [Error, Reason]),
-            usage()
-    end;
-main([Mod, Fun]) ->
-    erlang:apply(list_to_atom(Mod), list_to_atom(Fun), []);
-main([Mod, Fun|Args]) ->
-    erlang:apply(list_to_atom(Mod), list_to_atom(Fun), Args);
-main(_) ->
-    usage().
-
-usage() ->
-    io:format("USAGE\n"
-              "Compile: `gelo compile MODULE`\n"
-              "Run: `gelo MODULE FUNCTION\n"),
-    halt(1).
+#!/bin/bash
+if [ $1 = "compile" ]; then
+    erl -pa ebin -s gelo $1 $2 -run init stop -noshell
+elif [ "$#" -eq 2 ]; then
+    erl -pa ebin -s $1 $2 -run init stop -noshell
+else
+    printf "::GELO::\nCompile: \`gelo compile MODULE\`\nRun: \`gelo MODULE FUNCTION \`\n"
+fi

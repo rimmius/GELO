@@ -1,5 +1,5 @@
 Nonterminals Functions Function Statements Statement Expression Param Params Comps Comp If Else ElseIf ElseIfs comp math1 math2 assign.
-Terminals '+' '-' '*' '/' ';' '=' '(' ')' '{' '}' ',' '.' '[' ']' eq integer lt gt function 'if' neq leq geq else name console log string concat get 'and' 'or' spawn send recv variable return atomic thread.
+Terminals '+' '-' '*' '/' ';' '=' '(' ')' '{' '}' ',' '.' '[' ']' eq integer lt gt function 'if' neq leq geq else name console log string concat get 'and' 'or' spawn threadsend recv variable return atomic thread servercreate serveraccept serversend serverclose.
 Rootsymbol Functions.
 
 Left 100 math1.
@@ -38,8 +38,12 @@ Comp -> Expression comp Expression : {'$2', '$1', '$3'}.
 Comp -> Comp 'and' Comp : {'$1', 'and', '$3'}.
 Comp -> Comp 'or' Comp : {'$1', 'or', '$3'}.
 
+Expression -> servercreate '(' Params ')' : {servercreate, '$3'}.
+Expression -> serveraccept '(' Params ')' : {serveraccept, '$3'}.
+Expression -> serversend '(' Params ')' : {serversend, '$3'}.
+Expression -> serverclose '(' Params ')' : {serverclose, '$3'}.
 Expression -> console '.' log '(' Expression ')' : {echo, '$5'}.
-Expression -> thread '.' send '(' Expression ',' Expression ')' : {bang, '$5', '$7'}.
+Expression -> threadsend '(' Expression ',' Expression ')' : {bang, '$3', '$5'}.
 Expression -> Expression assign thread '.' recv '(' ')' : {recv, '$1'}.
 Expression -> '(' Expression ')' '{' Statements '}' : {recvopt, '$2', '$5'}.
 Expression -> '{' Params '}' : {tuple, '$2'}.

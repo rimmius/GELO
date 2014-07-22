@@ -45,6 +45,14 @@ do_fun({elseif, Arg1, Arg2}) ->
     {clause, 1, [], [lists:flatten(do_fun(Arg1))], do_fun(Arg2)};
 do_fun({echo, Arg1}) ->
     {call, 1, {remote, 1, {atom, 1, io}, {atom, 1, format}}, [{string, 1, "~p~n"}, {cons, 1, do_fun(Arg1), {nil, 1}}]};
+do_fun({servercreate, Arg1}) ->
+    {call, 1, {remote, 1, {atom, 1, gen_tcp}, {atom, 1, listen}}, do_fun(Arg1)};
+do_fun({serveraccept, Arg1}) ->
+    {call, 1, {remote, 1, {atom, 1, gen_tcp}, {atom, 1, accept}}, do_fun(Arg1)};
+do_fun({serversend, Arg1}) ->
+    {call, 1, {remote, 1, {atom, 1, gelo_lib}, {atom, 1, server_send}}, do_fun(Arg1)};
+do_fun({serverclose, Arg1}) ->
+    {call, 1, {remote, 1, {atom, 1, gen_tcp}, {atom, 1, close}}, do_fun(Arg1)};
 do_fun({ext, {name, _, Mod}, {name, _, Fun}, Args}) ->
     {call, 1, {remote, 1, {atom, 1, list_to_atom(Mod)}, {atom, 1, list_to_atom(Fun)}}, do_fun(Args)};
 do_fun({spawn, Arg1}) ->
