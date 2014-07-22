@@ -284,6 +284,8 @@ yystate(135, [99|Ics], Line, Tlen, Action, Alen) ->
     yystate(133, Ics, Line, Tlen+1, Action, Alen);
 yystate(135, Ics, Line, Tlen, Action, Alen) ->
     {Action,Alen,Tlen,Ics,Line,135};
+yystate(134, [37|Ics], Line, Tlen, _, _) ->
+    yystate(134, Ics, Line, Tlen+1, 30, Tlen);
 yystate(134, [10|Ics], Line, Tlen, _, _) ->
     yystate(134, Ics, Line+1, Tlen+1, 30, Tlen);
 yystate(134, [C|Ics], Line, Tlen, _, _) when C >= 0, C =< 9 ->
@@ -376,6 +378,8 @@ yystate(132, [41|Ics], Line, Tlen, _, _) ->
     yystate(128, Ics, Line, Tlen+1, 19, Tlen);
 yystate(132, [40|Ics], Line, Tlen, _, _) ->
     yystate(128, Ics, Line, Tlen+1, 19, Tlen);
+yystate(132, [37|Ics], Line, Tlen, _, _) ->
+    yystate(134, Ics, Line, Tlen+1, 19, Tlen);
 yystate(132, [34|Ics], Line, Tlen, _, _) ->
     yystate(122, Ics, Line, Tlen+1, 19, Tlen);
 yystate(132, [33|Ics], Line, Tlen, _, _) ->

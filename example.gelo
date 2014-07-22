@@ -3,8 +3,7 @@ function helloWorld(){
     console.log(helloWorld);
 }
 
-function spawnFuns(arg){
-    console.log(arg);
+function spawnFuns(){
     var me = self();
     thread.spawn(spawnFuns2(me));
     var b = thread.receive();
@@ -20,8 +19,9 @@ function listsExample(){
     console.log(list);
 }
 
-function webServer(port){
-    {@ok, listenSocket} = server.create(list_to_integer(port), []);
+function webServer(){
+    var port = 1337;
+    {@ok, listenSocket} = server.create(port, []);
     listenAndReply(listenSocket);
 }
 
