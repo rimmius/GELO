@@ -7,7 +7,7 @@ git clone git@github.com:gustehn/GELO.git<br>
 cd GELO<br>
 ./rebar compile<br>
 <br>
-Webserver up and spinning in 8 lines of code:
+Webserver up and spinning in 8 lines of code:<br>
 example.gelo
 ```
 function webServer(){
@@ -15,10 +15,7 @@ function webServer(){
     server.create( port
                    , function(request, socket){
                          console.log(request);
-                         server.send( socket,
-                         200,
-                         "Content-Type: text/html",
-                         "Hello World");
+                         server.send(socket, 200, "Content-Type: text/html", "Hello World");
                   });
 }
 ```
