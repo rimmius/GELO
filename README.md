@@ -2,9 +2,16 @@
 
 JavaScript-ish syntax flavor running on the Erlang VM.
 
-example.gelo for examples.
+INSTALLATION:
+git clone git@github.com:gustehn/GELO.git
+cd GELO
+./rebar compile
 
-./gelo for usage.
+Hit ./gelo for usage.
 
-Creator(s):
+Look into example.gelo for them examples!
+
+Happy hacking
+
+//
 @gustehn
