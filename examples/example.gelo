@@ -4,9 +4,37 @@ function helloWorld(){
 }
 
 function spawnFuns(){
-    thread.spawn(helloWorld());
+    var me = self();
+    thread.spawn(spawnFuns2(me));
+    var b = thread.receive();
+    console.log(b);
+}
+
+function spawnFuns2(parent){
+    thread.send(parent, @hello_parent);
+}
+
+function listsExample(){
+    var list = [1,2,3,4];
+    console.log(list);
+}
+
+function webServer(){
+    var port = 1337;
+    {@ok, listenSocket} = server.create(port, []);
+    listenAndReply(listenSocket);
 }
 
 function callAnotherMod(){
     example_two.helloGELO();
+}
+
+function listenAndReply(listenSocket){
+    console.log("listening");
+    {@ok, socket} = server.accept(listenSocket);
+    console.log("accepted");
+    {@tcp, socket, request} = thread.receive();
+    server.send(socket, 200, "Content-Type: text/html", "Hello World");
+    server.close(socket);
+    listenAndReply(listenSocket);
 }
