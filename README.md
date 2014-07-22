@@ -1,8 +1,9 @@
-GELO
-
-JavaScript-ish syntax flavor on top of erlang VM.
-
-Look into example.gelo for usage.
-
-@gustehn
 #GELO
+
+JavaScript-ish syntax flavor running on the Erlang VM.
+
+example.gelo for examples.
+./gelo for usage
+
+Creator(s):
+@gustehn
