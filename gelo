@@ -1,8 +1,8 @@
 #!/bin/bash
 if [ $1 = "compile" ]; then
-    erl -pa ebin -s gelo $1 $2 -run init stop -noshell
+    erl -pa "${GELOPATH}ebin" -s gelo $1 $2 -run init stop -noshell
 elif [ "$#" -eq 2 ]; then
-    erl -pa ebin -s $1 $2 -run init stop -noshell
+    erl -pa "${GELOPATH}ebin" -s $1 $2 -run init stop -noshell
 else
     printf "::GELO::\nCompile: \`gelo compile MODULE\`\nRun: \`gelo MODULE FUNCTION \`\n"
 fi

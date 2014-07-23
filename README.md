@@ -8,6 +8,11 @@ git clone git@github.com:gustehn/GELO.git
 cd GELO
 ./rebar compile
 ```
+Setup environment variables:
+```
+$GELOPATH=`pwd`
+$PATH=$PATH:`pwd`
+```
 <br>
 Webserver up and spinning in 8 lines of code:<br>
 example.gelo
@@ -23,12 +28,12 @@ function webServer(){
 ```
 Compile it:
 ```
-$ ./gelo compile example
+$ gelo compile example
 Compilation complete: example
 ```
 And run it:
 ```
-./gelo example webServer
+gelo example webServer
 ```
 Look into example.gelo for more examples!
 
