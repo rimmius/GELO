@@ -23,8 +23,8 @@ function webServer(){
     var port = 1337;
     server.create( port
                    , function(request, socket){
-                                                   console.log(request);
-                                                   server.send(socket, 200, "Content-Type: text/html", "Hello World");
+                         console.log(request.url);
+                         server.send(socket, 200, "Content-Type: text/html", "Hello World");
                   });
 }
 

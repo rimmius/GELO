@@ -1,6 +1,6 @@
 -module(gelo_parser).
 -export([parse/1, parse_and_scan/1, format_error/1]).
--file("src/gelo_parser.yrl", 84).
+-file("src/gelo_parser.yrl", 85).
 
 -export([tokens/1]).
 
@@ -1313,8 +1313,10 @@ yeccpars2_123(_, _, _, _, T, _, _) ->
 
 yeccpars2_124(S, '(', Ss, Stack, T, Ts, Tzr) ->
  yeccpars1(S, 125, Ss, Stack, T, Ts, Tzr);
-yeccpars2_124(_, _, _, _, T, _, _) ->
- yeccerror(T).
+yeccpars2_124(_S, Cat, Ss, Stack, T, Ts, Tzr) ->
+ [_,_|Nss] = Ss,
+ NewStack = yeccpars2_124_(Stack),
+ 'yeccgoto_\'Expression\''(hd(Nss), Cat, Nss, NewStack, T, Ts, Tzr).
 
 yeccpars2_125(S, ')', Ss, Stack, T, Ts, Tzr) ->
  yeccpars1(S, 127, Ss, Stack, T, Ts, Tzr);
@@ -1840,7 +1842,7 @@ yeccpars2_7_(__Stack0) ->
   end | __Stack].
 
 -compile({inline,yeccpars2_15_/1}).
--file("src/gelo_parser.yrl", 60).
+-file("src/gelo_parser.yrl", 61).
 yeccpars2_15_(__Stack0) ->
  [__1 | __Stack] = __Stack0,
  [begin
@@ -1848,7 +1850,7 @@ yeccpars2_15_(__Stack0) ->
   end | __Stack].
 
 -compile({inline,yeccpars2_16_/1}).
--file("src/gelo_parser.yrl", 66).
+-file("src/gelo_parser.yrl", 67).
 yeccpars2_16_(__Stack0) ->
  [__1 | __Stack] = __Stack0,
  [begin
@@ -1856,7 +1858,7 @@ yeccpars2_16_(__Stack0) ->
   end | __Stack].
 
 -compile({inline,yeccpars2_22_/1}).
--file("src/gelo_parser.yrl", 55).
+-file("src/gelo_parser.yrl", 56).
 yeccpars2_22_(__Stack0) ->
  [__1 | __Stack] = __Stack0,
  [begin
@@ -1872,7 +1874,7 @@ yeccpars2_28_(__Stack0) ->
   end | __Stack].
 
 -compile({inline,yeccpars2_29_/1}).
--file("src/gelo_parser.yrl", 61).
+-file("src/gelo_parser.yrl", 62).
 yeccpars2_29_(__Stack0) ->
  [__2,__1 | __Stack] = __Stack0,
  [begin
@@ -1880,7 +1882,7 @@ yeccpars2_29_(__Stack0) ->
   end | __Stack].
 
 -compile({inline,yeccpars2_35_/1}).
--file("src/gelo_parser.yrl", 77).
+-file("src/gelo_parser.yrl", 78).
 yeccpars2_35_(__Stack0) ->
  [__1 | __Stack] = __Stack0,
  [begin
@@ -1888,7 +1890,7 @@ yeccpars2_35_(__Stack0) ->
   end | __Stack].
 
 -compile({inline,yeccpars2_36_/1}).
--file("src/gelo_parser.yrl", 75).
+-file("src/gelo_parser.yrl", 76).
 yeccpars2_36_(__Stack0) ->
  [__1 | __Stack] = __Stack0,
  [begin
@@ -1896,7 +1898,7 @@ yeccpars2_36_(__Stack0) ->
   end | __Stack].
 
 -compile({inline,yeccpars2_38_/1}).
--file("src/gelo_parser.yrl", 76).
+-file("src/gelo_parser.yrl", 77).
 yeccpars2_38_(__Stack0) ->
  [__1 | __Stack] = __Stack0,
  [begin
@@ -1904,7 +1906,7 @@ yeccpars2_38_(__Stack0) ->
   end | __Stack].
 
 -compile({inline,yeccpars2_40_/1}).
--file("src/gelo_parser.yrl", 78).
+-file("src/gelo_parser.yrl", 79).
 yeccpars2_40_(__Stack0) ->
  [__1 | __Stack] = __Stack0,
  [begin
@@ -1912,7 +1914,7 @@ yeccpars2_40_(__Stack0) ->
   end | __Stack].
 
 -compile({inline,yeccpars2_41_/1}).
--file("src/gelo_parser.yrl", 74).
+-file("src/gelo_parser.yrl", 75).
 yeccpars2_41_(__Stack0) ->
  [__1 | __Stack] = __Stack0,
  [begin
@@ -1920,7 +1922,7 @@ yeccpars2_41_(__Stack0) ->
   end | __Stack].
 
 -compile({inline,yeccpars2_43_/1}).
--file("src/gelo_parser.yrl", 54).
+-file("src/gelo_parser.yrl", 55).
 yeccpars2_43_(__Stack0) ->
  [__3,__2,__1 | __Stack] = __Stack0,
  [begin
@@ -1928,7 +1930,7 @@ yeccpars2_43_(__Stack0) ->
   end | __Stack].
 
 -compile({inline,yeccpars2_47_/1}).
--file("src/gelo_parser.yrl", 51).
+-file("src/gelo_parser.yrl", 52).
 yeccpars2_47_(__Stack0) ->
  [__6,__5,__4,__3,__2,__1 | __Stack] = __Stack0,
  [begin
@@ -1944,7 +1946,7 @@ yeccpars2_49_(__Stack0) ->
   end | __Stack].
 
 -compile({inline,yeccpars2_50_/1}).
--file("src/gelo_parser.yrl", 56).
+-file("src/gelo_parser.yrl", 57).
 yeccpars2_50_(__Stack0) ->
  [__3,__2,__1 | __Stack] = __Stack0,
  [begin
@@ -1952,7 +1954,7 @@ yeccpars2_50_(__Stack0) ->
   end | __Stack].
 
 -compile({inline,yeccpars2_52_/1}).
--file("src/gelo_parser.yrl", 57).
+-file("src/gelo_parser.yrl", 58).
 yeccpars2_52_(__Stack0) ->
  [__3,__2,__1 | __Stack] = __Stack0,
  [begin
@@ -1960,7 +1962,7 @@ yeccpars2_52_(__Stack0) ->
   end | __Stack].
 
 -compile({inline,yeccpars2_60_/1}).
--file("src/gelo_parser.yrl", 48).
+-file("src/gelo_parser.yrl", 49).
 yeccpars2_60_(__Stack0) ->
  [__6,__5,__4,__3,__2,__1 | __Stack] = __Stack0,
  [begin
@@ -2096,7 +2098,7 @@ yeccpars2_96_(__Stack0) ->
   end | __Stack].
 
 -compile({inline,yeccpars2_99_/1}).
--file("src/gelo_parser.yrl", 70).
+-file("src/gelo_parser.yrl", 71).
 yeccpars2_99_(__Stack0) ->
  [__1 | __Stack] = __Stack0,
  [begin
@@ -2104,7 +2106,7 @@ yeccpars2_99_(__Stack0) ->
   end | __Stack].
 
 -compile({inline,yeccpars2_100_/1}).
--file("src/gelo_parser.yrl", 73).
+-file("src/gelo_parser.yrl", 74).
 yeccpars2_100_(__Stack0) ->
  [__1 | __Stack] = __Stack0,
  [begin
@@ -2112,7 +2114,7 @@ yeccpars2_100_(__Stack0) ->
   end | __Stack].
 
 -compile({inline,yeccpars2_101_/1}).
--file("src/gelo_parser.yrl", 69).
+-file("src/gelo_parser.yrl", 70).
 yeccpars2_101_(__Stack0) ->
  [__1 | __Stack] = __Stack0,
  [begin
@@ -2120,7 +2122,7 @@ yeccpars2_101_(__Stack0) ->
   end | __Stack].
 
 -compile({inline,yeccpars2_102_/1}).
--file("src/gelo_parser.yrl", 72).
+-file("src/gelo_parser.yrl", 73).
 yeccpars2_102_(__Stack0) ->
  [__1 | __Stack] = __Stack0,
  [begin
@@ -2128,7 +2130,7 @@ yeccpars2_102_(__Stack0) ->
   end | __Stack].
 
 -compile({inline,yeccpars2_103_/1}).
--file("src/gelo_parser.yrl", 68).
+-file("src/gelo_parser.yrl", 69).
 yeccpars2_103_(__Stack0) ->
  [__1 | __Stack] = __Stack0,
  [begin
@@ -2136,7 +2138,7 @@ yeccpars2_103_(__Stack0) ->
   end | __Stack].
 
 -compile({inline,yeccpars2_104_/1}).
--file("src/gelo_parser.yrl", 71).
+-file("src/gelo_parser.yrl", 72).
 yeccpars2_104_(__Stack0) ->
  [__1 | __Stack] = __Stack0,
  [begin
@@ -2152,7 +2154,7 @@ yeccpars2_105_(__Stack0) ->
   end | __Stack].
 
 -compile({inline,yeccpars2_106_/1}).
--file("src/gelo_parser.yrl", 58).
+-file("src/gelo_parser.yrl", 59).
 yeccpars2_106_(__Stack0) ->
  [__3,__2,__1 | __Stack] = __Stack0,
  [begin
@@ -2160,7 +2162,7 @@ yeccpars2_106_(__Stack0) ->
   end | __Stack].
 
 -compile({inline,yeccpars2_107_/1}).
--file("src/gelo_parser.yrl", 59).
+-file("src/gelo_parser.yrl", 60).
 yeccpars2_107_(__Stack0) ->
  [__3,__2,__1 | __Stack] = __Stack0,
  [begin
@@ -2200,15 +2202,23 @@ yeccpars2_120_(__Stack0) ->
   end | __Stack].
 
 -compile({inline,yeccpars2_121_/1}).
--file("src/gelo_parser.yrl", 62).
+-file("src/gelo_parser.yrl", 63).
 yeccpars2_121_(__Stack0) ->
  [__2,__1 | __Stack] = __Stack0,
  [begin
    { variable , unwrap ( __2 ) }
   end | __Stack].
 
+-compile({inline,yeccpars2_124_/1}).
+-file("src/gelo_parser.yrl", 48).
+yeccpars2_124_(__Stack0) ->
+ [__3,__2,__1 | __Stack] = __Stack0,
+ [begin
+   { obj_get , __1 , __3 }
+  end | __Stack].
+
 -compile({inline,yeccpars2_127_/1}).
--file("src/gelo_parser.yrl", 50).
+-file("src/gelo_parser.yrl", 51).
 yeccpars2_127_(__Stack0) ->
  [__5,__4,__3,__2,__1 | __Stack] = __Stack0,
  [begin
@@ -2216,7 +2226,7 @@ yeccpars2_127_(__Stack0) ->
   end | __Stack].
 
 -compile({inline,yeccpars2_128_/1}).
--file("src/gelo_parser.yrl", 49).
+-file("src/gelo_parser.yrl", 50).
 yeccpars2_128_(__Stack0) ->
  [__6,__5,__4,__3,__2,__1 | __Stack] = __Stack0,
  [begin
@@ -2224,7 +2234,7 @@ yeccpars2_128_(__Stack0) ->
   end | __Stack].
 
 -compile({inline,yeccpars2_130_/1}).
--file("src/gelo_parser.yrl", 64).
+-file("src/gelo_parser.yrl", 65).
 yeccpars2_130_(__Stack0) ->
  [__3,__2,__1 | __Stack] = __Stack0,
  [begin
@@ -2232,7 +2242,7 @@ yeccpars2_130_(__Stack0) ->
   end | __Stack].
 
 -compile({inline,yeccpars2_131_/1}).
--file("src/gelo_parser.yrl", 63).
+-file("src/gelo_parser.yrl", 64).
 yeccpars2_131_(__Stack0) ->
  [__4,__3,__2,__1 | __Stack] = __Stack0,
  [begin
@@ -2264,7 +2274,7 @@ yeccpars2_146_(__Stack0) ->
   end | __Stack].
 
 -compile({inline,yeccpars2_147_/1}).
--file("src/gelo_parser.yrl", 65).
+-file("src/gelo_parser.yrl", 66).
 yeccpars2_147_(__Stack0) ->
  [__2,__1 | __Stack] = __Stack0,
  [begin
@@ -2272,7 +2282,7 @@ yeccpars2_147_(__Stack0) ->
   end | __Stack].
 
 -compile({inline,yeccpars2_149_/1}).
--file("src/gelo_parser.yrl", 53).
+-file("src/gelo_parser.yrl", 54).
 yeccpars2_149_(__Stack0) ->
  [__2,__1 | __Stack] = __Stack0,
  [begin
@@ -2280,7 +2290,7 @@ yeccpars2_149_(__Stack0) ->
   end | __Stack].
 
 -compile({inline,yeccpars2_150_/1}).
--file("src/gelo_parser.yrl", 52).
+-file("src/gelo_parser.yrl", 53).
 yeccpars2_150_(__Stack0) ->
  [__3,__2,__1 | __Stack] = __Stack0,
  [begin
@@ -2328,4 +2338,4 @@ yeccpars2_165_(__Stack0) ->
   end | __Stack].
 
 
--file("src/gelo_parser.yrl", 93).
+-file("src/gelo_parser.yrl", 94).

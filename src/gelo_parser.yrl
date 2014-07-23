@@ -49,6 +49,7 @@ Expression -> threadsend '(' Expression ',' Expression ')' : {bang, '$3', '$5'}.
 Expression -> Expression assign thread '.' recv '(' ')' : {recv, '$1'}.
 Expression -> '(' Expression ')' '{' Statements '}' : {recvopt, '$2', '$5'}.
 Expression -> '{' Params '}' : {tuple, '$2'}.
+Expression -> name '.' name : {obj_get, '$1', '$3'}.
 Expression -> thread '.' spawn '(' Params ')' : {spawn, '$5'}.
 Expression -> name '.' name '(' Params ')' : {ext, '$1', '$3', '$5'}.
 Expression -> name '.' name '(' ')' : {ext, '$1', '$3', []}.

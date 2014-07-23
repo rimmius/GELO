@@ -14,6 +14,7 @@ server_create(Port, Fun) ->
     Listen = gen_tcp:listen(Port, [ {backlog, 1024}
                                   , {send_timeout, 30000}
                                   , {send_timeout_close, true}
+                                  , binary
                                   ]),
     server_accept(Listen, Fun).
 
@@ -28,12 +29,17 @@ server_accept({_, Error}, _) ->
 
 server_request(Socket, Fun) ->
     receive
-        {tcp, Socket, Request} ->
+        {tcp, Socket, Request0} ->
+            {ok, Packet, _R} = erlang:decode_packet(http, Request0, []),
+            Request = decode(Packet),
             Fun(Request, Socket),
             gen_tcp:close(Socket);
         _ ->
             ok
     end.
+
+decode({http_request, Method, {abs_path, Url}, _Version}) ->
+    [{method, atom_to_list(Method)}, {url, Url}].
 
 server_send(Socket, Status, Headers, Response0) ->
     Response = list_to_binary(io_lib:fwrite(
