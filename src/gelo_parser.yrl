@@ -53,7 +53,7 @@ Expression -> name '.' name : {obj_get, '$1', '$3'}.
 Expression -> thread '.' spawn '(' Params ')' : {spawn, '$5'}.
 Expression -> name '.' name '(' Params ')' : {ext, '$1', '$3', '$5'}.
 Expression -> name '.' name '(' ')' : {ext, '$1', '$3', []}.
-Expression -> Expression '.' get '(' Expression ')' : {get, '$1', '$5'}.
+Expression -> Expression '[' Expression ']' : {get, '$1', '$3'}.
 Expression -> '[' Params ']' : {list, '$2'}.
 Expression -> '[' ']' : {list, []}.
 Expression -> Expression concat Expression : {string, concat, '$1', '$3'}.

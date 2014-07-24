@@ -16,7 +16,7 @@ function spawnFuns2(parent){
 
 function listsExample(){
     var list = [1,2,3,4];
-    console.log(list);
+    console.log(list[1]);
 }
 
 function webServer(){
