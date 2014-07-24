@@ -34,7 +34,7 @@ do_fun({assign, Arg1, Arg2}) ->
 do_fun({call, Arg1, Arg2}) ->
     {call, 1, {atom, 1, list_to_atom(Arg1)}, do_fun(Arg2)};
 do_fun({ifs, Arg1, Arg3}) ->
-    {'if', 1, [lists:merge([{clause, 1, [], [lists:flatten(do_fun(Arg1))], do_fun(Arg3)}])]};
+    {'if', 1, [lists:merge([{clause, 1, [], [lists:flatten(do_fun(Arg1))], do_fun(Arg3)}]), {clause, 1, [],[[{atom, 1, true}]], [{atom, 1, ok}]}]};
 do_fun({ifs, Arg1, Arg2, Arg3}) ->
     {'if', 1, lists:flatten([{clause, 1, [], [lists:flatten(do_fun(Arg1))], do_fun(Arg2)}, do_fun(Arg3)])};
 do_fun({Arg1, 'and', Arg2}) ->
