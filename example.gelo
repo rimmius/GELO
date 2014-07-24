@@ -15,8 +15,22 @@ function spawnFuns2(parent){
 }
 
 function listsExample(){
-    var list = [1,2,3,4];
-    console.log(list[1]);
+    var list = [1,"hej",3,4];
+    for(0, length(list), 1, function(i){
+        console.log(list[i]);
+    });
+    for(length(list)-1, 0, 1, function(i){
+        console.log(list[i]);
+    });
+}
+
+function foreach_example(){
+    var list = [ [{@firstname, "Gelo"}, {@lastname, "son of Deinomenes"}]
+               , [{@firstname, "Fredrik"}, {@lastname, "Gustafsson"}]
+               ];
+    foreach(list, function(element){
+        console.log(element.firstname);
+    });
 }
 
 function webServer(){

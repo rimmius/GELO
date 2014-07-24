@@ -1,7 +1,9 @@
 -module(gelo_lib).
 -export([ get_value/3
         , server_create/2
-        , server_send/4]).
+        , server_send/4
+        , foreach/2
+        , for_loop/4]).
 
 get_value([H|_T], I, I) ->
     H;
@@ -9,6 +11,32 @@ get_value([_H|T], I, A) ->
     get_value(T, I, A+1);
 get_value([], _, _) ->
     undefined.
+
+for_loop(Acc, Rule, Acc2, F) ->
+    case Acc < Rule of
+        true ->
+            for_loop_inc(Acc, Rule, Acc2, F);
+        false ->
+            for_loop_dec(Acc, Rule, Acc2, F)
+    end.
+
+for_loop_inc(Acc, Rule, Acc2, F) when Acc < Rule ->
+    F(Acc),
+    for_loop_inc(Acc+Acc2, Rule, Acc2, F);
+for_loop_inc(_,_,_,_) ->
+    ok.
+
+for_loop_dec(Acc, Rule, Acc2, F) when Acc >= Rule ->
+    F(Acc),
+    for_loop_dec(Acc-Acc2, Rule, Acc2, F);
+for_loop_dec(_,_,_,_) ->
+    ok.
+
+foreach([], _F) ->
+    ok;
+foreach([H|T], F) ->
+    F(H),
+    foreach(T, F).
 
 server_create(Port, Fun) ->
     Listen = gen_tcp:listen(Port, [ {backlog, 1024}

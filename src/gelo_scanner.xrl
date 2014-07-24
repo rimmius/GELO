@@ -8,6 +8,8 @@ S = [\000-\s\%]
 
 Rules.
 
+foreach : {token, {foreach, TokenLine}}.
+for : {token, {for, TokenLine}}.
 fun : {token, {'fun', TokenLine}}.
 server.create : {token, {servercreate, TokenLine}}.
 server.accept : {token, {serveraccept, TokenLine}}.

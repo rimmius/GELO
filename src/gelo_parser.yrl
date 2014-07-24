@@ -1,5 +1,5 @@
 Nonterminals Functions Function Statements Statement Expression Param Params Comps Comp If Else ElseIf ElseIfs comp math1 math2 assign.
-Terminals '+' '-' '*' '/' ';' '=' '(' ')' '{' '}' ',' '.' '[' ']' eq integer lt gt function 'if' neq leq geq else name console log string concat get 'and' 'or' spawn threadsend recv variable return atomic thread servercreate serveraccept serversend serverclose.
+Terminals '+' '-' '*' '/' ';' '=' '(' ')' '{' '}' ',' '.' '[' ']' eq integer lt gt function 'if' neq leq geq else name console log string concat 'and' 'or' spawn threadsend recv variable return atomic thread servercreate serveraccept serversend serverclose for foreach.
 Rootsymbol Functions.
 
 Left 100 math1.
@@ -21,6 +21,7 @@ Statement -> If : '$1'.
 Params -> Param : ['$1'].
 Params -> Param ',' Params : ['$1'|'$3'].
 Param -> Expression : '$1'.
+Param -> Comp : '$1'.
 
 If  -> 'if' '(' Comps ')' '{' Statements '}' : {ifs, '$3', '$6'}.
 If -> 'if' '(' Comps ')' '{' Statements '}' Else : {ifs, '$3', '$6', '$8'}.
@@ -38,6 +39,8 @@ Comp -> Expression comp Expression : {'$2', '$1', '$3'}.
 Comp -> Comp 'and' Comp : {'$1', 'and', '$3'}.
 Comp -> Comp 'or' Comp : {'$1', 'or', '$3'}.
 
+Expression -> for '(' Params ')' : {for_loop, '$3'}.
+Expression -> foreach '(' Params ')' : {foreach_loop, '$3'}.
 Expression -> function '(' Params ')' '{' Statements '}' : {fastfun, '$3', '$6'}.
 Expression -> function '(' ')' '{' Statements '}' : {fastfun, [], '$5'}.
 Expression -> servercreate '(' Params ')' : {servercreate, '$3'}.

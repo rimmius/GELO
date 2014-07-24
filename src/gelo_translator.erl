@@ -89,6 +89,10 @@ do_fun({list, Arg1}) ->
 do_fun({string, 1, Arg1}) ->
     [S] = string:tokens(Arg1, "\""),
     {string, 1, S};
+do_fun({for_loop, Arg1}) ->
+    {call, 1, {remote, 1, {atom, 1, gelo_lib}, {atom, 1, for_loop}}, do_fun(Arg1)};
+do_fun({foreach_loop, Arg1}) ->
+    {call, 1, {remote, 1, {atom, 1, gelo_lib}, {atom, 1, foreach}}, do_fun(Arg1)};
 do_fun({get, List, Index}) ->
     {call, 1, {remote, 1, {atom, 1, gelo_lib}, {atom, 1, get_value}}, [do_fun(List), do_fun(Index), {integer, 1, 0}]};
 do_fun({obj_get, {name, _, PropList}, {name, _, Key}}) ->
