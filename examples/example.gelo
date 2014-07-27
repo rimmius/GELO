@@ -15,26 +15,33 @@ function spawnFuns2(parent){
 }
 
 function listsExample(){
-    var list = [1,2,3,4];
-    console.log(list);
+    var list = [1,"hej",3,4];
+    for(0, length(list), 1, function(i){
+        console.log(list[i]);
+    });
+    for(length(list)-1, 0, 1, function(i){
+        console.log(list[i]);
+    });
+}
+
+function foreach_example(){
+    var list = [ [{@firstname, "Gelo"}, {@lastname, "son of Deinomenes"}]
+               , [{@firstname, "Fredrik"}, {@lastname, "Gustafsson"}]
+               ];
+    foreach(list, function(element){
+        console.log(element.firstname);
+    });
 }
 
 function webServer(){
     var port = 1337;
-    {@ok, listenSocket} = server.create(port, []);
-    listenAndReply(listenSocket);
+    server.create( port
+                   , function(request, socket){
+                         console.log(request.url);
+                         server.send(socket, 200, "Content-Type: text/html", "Hello World");
+                  });
 }
 
 function callAnotherMod(){
     example_two.helloGELO();
-}
-
-function listenAndReply(listenSocket){
-    console.log("listening");
-    {@ok, socket} = server.accept(listenSocket);
-    console.log("accepted");
-    {@tcp, socket, request} = thread.receive();
-    server.send(socket, 200, "Content-Type: text/html", "Hello World");
-    server.close(socket);
-    listenAndReply(listenSocket);
 }
